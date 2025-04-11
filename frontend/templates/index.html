@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Inventory Optimizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+</head>
+<body class="loading">
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="icon">inventory_2</i>
+                <h1>Retail Inventory Optimizer</h1>
+            </div>
+            
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="active">
+                            <i class="icon">dashboard</i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">inventory</i>
+                            <span>Inventory</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">trending_up</i>
+                            <span>Demand Forecast</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">sell</i>
+                            <span>Pricing</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">local_shipping</i>
+                            <span>Supply Chain</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">group</i>
+                            <span>Customer Analysis</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">science</i>
+                            <span>AI Agents</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">monitoring</i>
+                            <span>System Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="icon">settings</i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main">
+            <div class="header">
+                <h1 class="page-title">AI-Powered Inventory Dashboard</h1>
+                <div class="actions">
+                    <button class="btn btn-outline" id="refreshBtn">
+                        <i class="icon">refresh</i>
+                        <span>Refresh</span>
+                    </button>
+                    <button class="btn btn-primary" id="runAgentsBtn">
+                        <i class="icon">play_arrow</i>
+                        <span>Run Agents</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- KPI Cards -->
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Out of Stock Items</div>
+                        <i class="icon">inventory</i>
+                    </div>
+                    <div class="card-value">--</div>
+                    <div class="card-trend trend-down">
+                        <i class="icon">arrow_downward</i>
+                        <span>--% from last week</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Overstocked Items</div>
+                        <i class="icon">inventory_2</i>
+                    </div>
+                    <div class="card-value">--</div>
+                    <div class="card-trend trend-down">
+                        <i class="icon">arrow_downward</i>
+                        <span>--% from last week</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Weekly Lost Sales</div>
+                        <i class="icon">payments</i>
+                    </div>
+                    <div class="card-value">$--</div>
+                    <div class="card-trend trend-up">
+                        <i class="icon">arrow_upward</i>
+                        <span>--% from last week</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="card chart-container">
+                <div class="card-header">
+                    <div class="card-title">Inventory Health by Category</div>
+                    <div class="tabs">
+                        <div class="tab active" data-period="week">Weekly</div>
+                        <div class="tab" data-period="month">Monthly</div>
+                        <div class="tab" data-period="quarter">Quarterly</div>
+                    </div>
+                </div>
+                <canvas id="inventoryHealthChart"></canvas>
+            </div>
+            
+            <!-- Inventory Alerts -->
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-title">Inventory Alerts</div>
+                    <button class="btn btn-outline">
+                        <i class="icon">download</i>
+                        <span>Export</span>
+                    </button>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Store</th>
+                            <th>Status</th>
+                            <th>Current Stock</th>
+                            <th>Recommended</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Inventory alerts will be loaded here via JavaScript -->
+                        <tr>
+                            <td colspan="7" style="text-align: center;">Loading inventory alerts...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- AI Agents Status -->
+            <h2 style="margin-bottom: 1rem;">AI Agents Status</h2>
+            <div class="agent-grid">
+                <!-- Agent cards will be loaded here via JavaScript -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <div class="agent-title">Loading Agents...</div>
+                        <div class="agent-status">
+                            <div class="status-dot status-idle"></div>
+                            <span>Checking</span>
+                        </div>
+                    </div>
+                    <div class="agent-body">
+                        <div class="agent-stats">
+                            <div class="agent-stat-label">Last Run:</div>
+                            <div class="agent-stat-value">--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System Configuration -->
+            <h2 style="margin-bottom: 1rem;">System Configuration</h2>
+            <div class="config-panel">
+                <div class="config-header">
+                    <div class="config-title">Agent Configuration</div>
+                    <button class="btn btn-outline" id="saveConfigBtn">
+                        <i class="icon">save</i>
+                        <span>Save Configuration</span>
+                    </button>
+                </div>
+                <div class="config-form">
+                    <div class="form-group">
+                        <label class="form-label">Run Mode</label>
+                        <select class="form-select" id="runModeSelect">
+                            <option value="continuous">Continuous</option>
+                            <option value="single">Single Run</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Run Interval (seconds)</label>
+                        <input type="number" class="form-input" id="runIntervalInput" value="300">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ollama Base URL</label>
+                        <input type="text" class="form-input" id="ollamaUrlInput" value="http://localhost:11434">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Log Level</label>
+                        <select class="form-select" id="logLevelSelect">
+                            <option value="DEBUG">DEBUG</option>
+                            <option value="INFO" selected>INFO</option>
+                            <option value="WARNING">WARNING</option>
+                            <option value="ERROR">ERROR</option>
+                            <option value="CRITICAL">CRITICAL</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Database Path</label>
+                        <input type="text" class="form-input" id="dbPathInput" value="data/retail_inventory.db" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Log File Path</label>
+                        <input type="text" class="form-input" id="logPathInput" value="logs/retail_inventory.log" disabled>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Activity & Logs -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <span>Recent System Activity</span>
+                        <i class="icon">expand_more</i>
+                    </div>
+                    <div class="accordion-body show">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Agent</th>
+                                    <th>Activity</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Recent activity will be loaded here via JavaScript -->
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">Loading activity logs...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Notifications -->
+    <div class="notification-center">
+        <!-- Notifications will be added here via JavaScript -->
+    </div>
+    
+    <!-- Run Agents Modal -->
+    <div class="modal-overlay" id="runAgentsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Run Agents</div>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">Select Agents to Run</label>
+                    <div style="margin-top: 0.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox" checked> All Agents
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Demand Forecasting Agent
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Inventory Agent
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Pricing Optimization Agent
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Supply Chain Agent
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Customer Behavior Agent
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Reporting Agent
+                        </label>
+                        <label style="display: block; margin-bottom: 0.5rem;">
+                            <input type="checkbox"> Coordinator Agent
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Run Mode</label>
+                    <select class="form-select">
+                        <option value="single">Single Run</option>
+                        <option value="continuous">Continuous Mode</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelRunBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmRunBtn">Run Agents</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>

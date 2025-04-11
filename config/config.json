@@ -1,0 +1,160 @@
+{
+  "system": {
+    "name": "Retail Inventory Multi-Agent System",
+    "version": "1.0.0",
+    "run_mode": "continuous",
+    "run_interval_seconds": 300,
+    "log_level": "INFO",
+    "log_path": "logs/retail_inventory.log",
+    "ollama_base_url": "http://localhost:11434"
+  },
+  
+  "database": {
+    "db_path": "data/retail_inventory.db",
+    "backup_interval_hours": 24,
+    "backup_retention_days": 7,
+    "max_connections": 10
+  },
+  
+  "coordinator_agent": {
+    "llm_model": "llama3",
+    "temperature": 0.2,
+    "message_retention_limit": 1000,
+    "priority_levels": ["critical", "high", "medium", "low"],
+    "conflict_resolution_threshold": 0.3,
+    "demand_change_threshold": 0.1,
+    "inventory_threshold": 0.2,
+    "price_change_threshold": 0.05
+  },
+  
+  "demand_agent_config": {
+    "llm_model": "llama3",
+    "temperature": 0.1,
+    "models_dir": "models/demand",
+    "forecast_horizon_days": 14,
+    "training_interval_days": 7,
+    "anomaly_detection_threshold": 2.5,
+    "seasonal_factors": [
+      "Holiday",
+      "Festival",
+      "Back to School",
+      "Summer",
+      "Winter",
+      "Spring",
+      "Fall"
+    ],
+    "external_factors": [
+      "Weather",
+      "Competitor Pricing",
+      "Economic Indicator",
+      "Local Events"
+    ]
+  },
+  
+  "inventory_agent_config": {
+    "llm_model": "llama3",
+    "temperature": 0.1,
+    "safety_stock_factor": 1.5,
+    "safety_buffer_days": 5,
+    "default_order_cost": 20,
+    "stockout_penalty_factor": 2.0,
+    "excess_inventory_threshold": 2.0,
+    "critical_stock_threshold": 0.8,
+    "reorder_point_threshold": 0.2,
+    "safety_stock_multiplier": 1.5
+  },
+  
+  "pricing_agent_config": {
+    "llm_model": "llama3",
+    "temperature": 0.2,
+    "models_dir": "models/pricing",
+    "min_margin": 0.1,
+    "max_discount": 0.3,
+    "competitor_threshold": 0.05,
+    "elasticity_update_interval_days": 14,
+    "price_change_limit_percent": 15,
+    "price_elasticity_threshold": 0.1,
+    "discount_strategy": "dynamic"
+  },
+  
+  "supply_chain_agent_config": {
+    "llm_model": "llama3",
+    "temperature": 0.2,
+    "lead_time_buffer": 3,
+    "consolidation_threshold": 3,
+    "expedite_cost_multiplier": 1.5,
+    "supplier_performance_threshold": 0.85,
+    "supplier_performance_weight": 0.7,
+    "supplier_issue_severity_levels": ["low", "medium", "high"],
+    "lead_time_optimization": true
+  },
+  
+  "customer_agent_config": {
+    "llm_model": "llama3",
+    "temperature": 0.3,
+    "models_dir": "models/customer",
+    "segment_update_interval_days": 30,
+    "default_customer_segments": [
+      "Premium Loyal",
+      "High Value",
+      "Regular Shoppers",
+      "New Customers",
+      "Lapsed Valuable",
+      "Occasional Shoppers"
+    ],
+    "affinity_score_threshold": 0.2,
+    "churn_prediction_model": "default",
+    "loyalty_program_enabled": true
+  },
+  
+  "reporting_agent_config": {
+    "llm_model": "llama3",
+    "temperature": 0.2,
+    "report_frequency_hours": 24,
+    "export_formats": ["json", "csv"],
+    "notification_threshold": {
+      "cost_reduction": 10,
+      "revenue_increase": 12,
+      "stockout_risk": 15
+    }
+  },
+  
+  "api": {
+    "enabled": true,
+    "host": "0.0.0.0",
+    "port": 8080,
+    "cors_origins": ["*"],
+    "rate_limit": 100,
+    "auth_required": true
+  },
+  
+  "dashboard": {
+    "enabled": true,
+    "host": "0.0.0.0",
+    "port": 8081,
+    "refresh_interval_seconds": 60,
+    "default_view": "overview"
+  },
+  
+  "alerts": {
+    "email": {
+      "enabled": false,
+      "smtp_server": "smtp.example.com",
+      "smtp_port": 587,
+      "sender_email": "alerts@example.com",
+      "recipient_emails": ["manager@example.com"]
+    },
+    "slack": {
+      "enabled": false,
+      "webhook_url": "https://hooks.slack.com/services/XXXX/YYYY/ZZZZ"
+    },
+    "sms": {
+      "enabled": false,
+      "provider": "twilio",
+      "account_sid": "XXXXX",
+      "auth_token": "YYYYY",
+      "sender_number": "+1234567890",
+      "recipient_numbers": ["+0987654321"]
+    }
+  }
+}
